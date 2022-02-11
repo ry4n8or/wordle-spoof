@@ -1,0 +1,37 @@
+body {
+	background-color: #000000;
+}
+
+#letter-ctr {
+}
+
+#letter-ctr > * {
+	display: flex;
+	justify-content: center;
+}
+
+#letter-ctr > * > * {
+	width: 50px;
+	height: 50px;
+	border: 1px solid #ffffff;
+	color: #000000;
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+	font-size: 40px;
+	align-items: center;
+}
+
+#keyboard {
+	margin-top: 15px;
+}
+
+#keyboard > * {
+	display: flex;
+	justify-content: center;
+	margin-top: 5px;
+}
+
+#keyboard > * > * {
+	margin: 5px;
+}
