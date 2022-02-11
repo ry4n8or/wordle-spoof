@@ -3,15 +3,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let row = 0;
 	let column = 0;
-	const theWord = 'ULCER';
+	const theWord = 'PENIS';
 
 	const buttons = document.querySelectorAll('button');
 	for (let button = 0; button < buttons.length; button++) {
 		buttons[button].addEventListener('click', () => {
 			if (buttons[button].value === 'ENTER' && column === 5) {
-				checkWord(theWord, row);
-				row++;
-				column = 0;
+				const word = putWordTog(row);
+				const url = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=200&includeRelated=false&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+				fetch(url)
+				.then(handleErrors)
+				.catch(console.log)
+
+				function handleErrors(response) {
+					if (!response.ok) {
+						alert('Not a word. Try again.');
+						throw Error(response.statusText);
+					}
+					else {
+						checkWord(theWord, row);
+						row++;
+						column = 0;
+						if (row === 6) {
+							alert('YOU SUCK');
+							document.location.reload();
+						}
+					}
+				}
 			}
 			else if (buttons[button].value === 'DELETE' && column > 0) {
 				column--;
@@ -24,6 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 });
+
+function putWordTog(row) {
+	const ltrs = document.querySelectorAll(`#row-${row} div`);
+	const word = `${ltrs[0].textContent}${ltrs[1].textContent}${ltrs[2].textContent}${ltrs[3].textContent}${ltrs[4].textContent}`;
+	return word.toLowerCase();
+	console.log(word.toLowerCase());
+}
 
 function createLetterSpots(container) {
 	for (let row = 0; row < 6; row++) {
@@ -59,7 +84,6 @@ function checkWord(theWord, row) {
 	let correct = 0;
 	const words = document.querySelectorAll(`#row-${row} div`);
 	const word = `${words[0].textContent}${words[1].textContent}${words[2].textContent}${words[3].textContent}${words[4].textContent}`;
-	console.log(word)
 	const wordOb = {};
 	for (let i = 0; i < 5; i++) {
 		if (theWord[i] in wordOb) {
@@ -88,6 +112,7 @@ function checkWord(theWord, row) {
 
 	if (correct === 5) {
 		alert('YOU WIN');
+		document.location.reload();
 	}
 
 	// yellow or black check
