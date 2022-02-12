@@ -3,32 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let row = 0;
 	let column = 0;
-	const theWord = 'PENIS';
+	const theWord = 'CLONE';
 
 	const buttons = document.querySelectorAll('button');
 	for (let button = 0; button < buttons.length; button++) {
 		buttons[button].addEventListener('click', () => {
 			if (buttons[button].value === 'ENTER' && column === 5) {
 				const word = putWordTog(row);
-				const url = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=200&includeRelated=false&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
-				fetch(url)
-				.then(handleErrors)
-				.catch(console.log)
-
-				function handleErrors(response) {
-					if (!response.ok) {
-						alert('Not a word. Try again.');
-						throw Error(response.statusText);
+				if (ansWords.indexOf(word) !== -1 || otherWords.indexOf(word) !== -1) {
+					checkWord(theWord, row);
+					row++;
+					column = 0;
+					if (row === 6) {
+						alert('YOU SUCK');
+						document.location.reload();
 					}
-					else {
-						checkWord(theWord, row);
-						row++;
-						column = 0;
-						if (row === 6) {
-							alert('YOU SUCK');
-							document.location.reload();
-						}
-					}
+				}
+				else {
+					alert('Not a word. Try Again')
 				}
 			}
 			else if (buttons[button].value === 'DELETE' && column > 0) {
@@ -47,7 +39,6 @@ function putWordTog(row) {
 	const ltrs = document.querySelectorAll(`#row-${row} div`);
 	const word = `${ltrs[0].textContent}${ltrs[1].textContent}${ltrs[2].textContent}${ltrs[3].textContent}${ltrs[4].textContent}`;
 	return word.toLowerCase();
-	console.log(word.toLowerCase());
 }
 
 function createLetterSpots(container) {
