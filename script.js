@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let row = 0;
 	let column = 0;
-	const theWord = 'CLONE'; // error code when git push
+	const theWord = 'CLONE'; // last test to see error message before bed
 
 	const buttons = document.querySelectorAll('button');
 	for (let button = 0; button < buttons.length; button++) {
