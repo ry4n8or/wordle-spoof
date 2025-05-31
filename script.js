@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let row = 0;
 	let column = 0;
-	const theWord = 'CLONE';
+	const theWord = 'CLONE'; // Got to refigure out how to access my list
 
 	const buttons = document.querySelectorAll('button');
 	for (let button = 0; button < buttons.length; button++) {
